@@ -70,10 +70,20 @@ body.dark {
   --info: oklch(0.7 0.05 260);
 }
 
+.hidden {
+  display: none !important;
+}
+
 body {
   background-color: var(--bg-dark);
   color: var(--text);
   font-family: Roboto, Arial, Helvetica, sans-serif;
+}
+
+.form-container {
+  background-color: var(--bg);
+  padding: 1.5rem 2rem;
+  position: relative;
 }
 
 section.form {
@@ -81,9 +91,6 @@ section.form {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: var(--bg);
-  margin: 0 auto;
-  padding: 1.5rem 2rem;
 }
 
 .form-title {
@@ -138,7 +145,7 @@ section.form {
   transition: background-color 0.3s, color 0.3s;
 }
 
-.buttons button:hover {
+.buttons button:not(.disabled):hover {
   opacity: 0.8;
   transform: translateY(-1px);
 }
@@ -146,6 +153,11 @@ section.form {
 .form .preview-btn {
   background-color: var(--info);
   color: var(--bg-light);
+}
+
+button.disabled {
+  background-color: var(--text-muted);
+  cursor: auto;
 }
 
 .button-group {
@@ -171,32 +183,43 @@ section.form {
 }
 
 .cv-preview {
-  position: absolute;
-  width: 50%;
-  min-height: 50%;
+  position: fixed;
+  width: 80%;
+  min-height: 80%;
   background-color: var(--bg-light);
-  top: 25%;
-  left: 25%;
+  top: 10%;
+  left: 10%;
   z-index: 2;
 }
 
 .preview-backdrop {
   top: 0;
   left: 0;
-  position: absolute;
+  position: fixed;
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 1;
-  height: 100%;
   width: 100%;
+  min-height: 100vh;
 }
 
 @media (min-width: 768px) {
-  section.form {
-    margin-top: 1.5rem;
+  .body-wrapper {
+    padding: 1.5rem 3.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .cv-preview {
+    position: static;
+    width: 100%;
+  }
+
+  .form-container {
     border: var(--border) 1px solid;
     border-radius: 0.75rem;
     box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.3);
-    max-width: 40%;
+    width: 100%;
   }
 
   .field-group {
