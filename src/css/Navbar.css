@@ -1,0 +1,27 @@
+header {
+  background-color: var(--bg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+header p {
+  font-weight: bold;
+  color: var(--primary);
+}
+
+nav button {
+  background-color: var(--primary);
+  color: var(--bg-light);
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+nav button:hover {
+  opacity: 0.8;
+  transform: translateY(-1px);
+}

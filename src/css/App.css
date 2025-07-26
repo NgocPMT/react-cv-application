@@ -95,6 +95,7 @@ section.form {
 
 .form-title {
   margin-bottom: 2rem;
+  color: var(--primary);
 }
 
 .field-group {
@@ -137,12 +138,12 @@ section.form {
   padding: 1rem;
   border: none;
   border-radius: 0.5rem;
-  background-color: var(--text);
+  background-color: var(--primary);
   color: var(--bg-light);
   font-size: 1rem;
   margin-bottom: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
+  transition: all 0.3s;
 }
 
 .buttons button:not(.disabled):hover {
@@ -150,7 +151,7 @@ section.form {
   transform: translateY(-1px);
 }
 
-.form .preview-btn {
+.buttons .preview-btn {
   background-color: var(--info);
   color: var(--bg-light);
 }
@@ -205,6 +206,10 @@ button.disabled {
 .cv-preview h2,
 .cv-preview h3 {
   margin-bottom: 0.25rem;
+}
+
+.cv-preview h1 {
+  margin-top: 0.25rem;
 }
 
 .experience,
@@ -270,25 +275,35 @@ button.disabled {
     padding: 1.5rem 3.5rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
     gap: 2rem;
+  }
+
+  .form-container {
+    grid-area: 1 / 1 / 2 / 2;
   }
 
   .cv-preview {
     position: static;
     width: 100%;
     font-size: 0.75rem;
+    min-height: 50rem;
+    grid-area: 1 / 2 / 3 / 3;
+    border: none;
+    box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
   }
 
   .cv-preview .cv-header {
-    padding: 0.75rem;
+    padding: 1rem;
   }
 
   .cv-preview .cv-main {
-    padding: 0.75rem;
+    padding: 1rem;
   }
 
   .cv-preview .personal-info {
-    padding: 0.75rem;
+    padding: 1rem;
   }
 
   .form-container {
