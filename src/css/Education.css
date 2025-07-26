@@ -1,0 +1,10 @@
+.cv-preview .education {
+  margin-bottom: 1rem;
+  display: grid;
+  grid-template-columns: 2fr 8fr;
+  gap: 0.25rem;
+}
+
+.cv-preview .education p {
+  font-weight: bold;
+}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import "../css/App.css";
+import Education from "./Education";
 
 export default function App() {
   const [jobTitle, setJobTitle] = useState("");
@@ -288,30 +289,7 @@ export default function App() {
                   </div>
                 </div>
                 <h2>Education</h2>
-                <div className="education">
-                  <p>
-                    {education.beginDate}
-                    {education.endDate && ` - ${education.endDate}`}
-                  </p>
-                  <div className="education-details">
-                    <h3>
-                      {education.title}
-                      {education.schoolName && `, ${education.schoolName}`}
-                    </h3>
-                    {education.details && (
-                      <ul>
-                        {education.details.map(
-                          (detail, index) =>
-                            detail.length > 0 && (
-                              <li key={`${education.title}-${index}`}>
-                                {detail}
-                              </li>
-                            )
-                        )}
-                      </ul>
-                    )}
-                  </div>
-                </div>
+                <Education {...education} />
               </div>
               <div className="personal-info">
                 <p>

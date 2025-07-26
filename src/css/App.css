@@ -212,8 +212,7 @@ button.disabled {
   margin-top: 0.25rem;
 }
 
-.experience,
-.education {
+.experience {
   margin-bottom: 1rem;
 }
 
@@ -243,15 +242,13 @@ button.disabled {
   padding: 0.5rem;
 }
 
-.cv-preview .experience,
-.cv-preview .education {
+.cv-preview .experience {
   display: grid;
   grid-template-columns: 2fr 8fr;
   gap: 0.25rem;
 }
 
-.cv-preview .experience p,
-.cv-preview .education p {
+.cv-preview .experience p {
   font-weight: bold;
 }
 
