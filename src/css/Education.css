@@ -1,8 +1,8 @@
 .cv-preview .education {
-  margin-bottom: 1rem;
+  margin: 0.75rem 0;
   display: grid;
   grid-template-columns: 2fr 8fr;
-  gap: 0.25rem;
+  gap: 0.5rem;
 }
 
 .cv-preview .education p {
