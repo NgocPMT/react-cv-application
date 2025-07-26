@@ -66,6 +66,17 @@ export default function App() {
     setEducation({ ...education, endDate: e.target.value });
   }
 
+  function createEmptyDetails() {
+    const newDetails = education.details ? [...education.details, ""] : [""];
+    setEducation({ ...education, details: newDetails });
+  }
+
+  function handleDetails(index, e) {
+    const newDetails = [...education.details];
+    newDetails[index] = e.target.value;
+    setEducation({ ...education, details: newDetails });
+  }
+
   function togglePreview() {
     setIsPreviewOpen(!isPreviewOpen);
   }
@@ -192,6 +203,19 @@ export default function App() {
                 onChange={handleEndDate}
               />
             </FieldGroup>
+            <p>Details</p>
+            <button onClick={createEmptyDetails}>Add</button>
+            {education.details &&
+              education.details.map((detail, index) => (
+                <Field
+                  key={`${education.title}-field-${index}`}
+                  title={`Detail ${index + 1}`}
+                  type="text"
+                  id={`detail-${index + 1}`}
+                  value={detail}
+                  onChange={(e) => handleDetails(index, e)}
+                />
+              ))}
           </Form>
           <div className="buttons">
             {isMobile && (
@@ -265,15 +289,27 @@ export default function App() {
                 </div>
                 <h2>Education</h2>
                 <div className="education">
-                  <p>1999/09 - 2001/05</p>
+                  <p>
+                    {education.beginDate}
+                    {education.endDate && ` - ${education.endDate}`}
+                  </p>
                   <div className="education-details">
-                    <h3>Master of Computer Science, University of Maryland</h3>
-                    <ul>
-                      <li>Graduated Summa Cum Laude</li>
-                      <li>
-                        Member of Student Association of Project Management
-                      </li>
-                    </ul>
+                    <h3>
+                      {education.title}
+                      {education.schoolName && `, ${education.schoolName}`}
+                    </h3>
+                    {education.details && (
+                      <ul>
+                        {education.details.map(
+                          (detail, index) =>
+                            detail.length > 0 && (
+                              <li key={`${education.title}-${index}`}>
+                                {detail}
+                              </li>
+                            )
+                        )}
+                      </ul>
+                    )}
                   </div>
                 </div>
               </div>
