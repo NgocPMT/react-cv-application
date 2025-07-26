@@ -67,8 +67,17 @@ export default function App() {
     setEducation({ ...education, endDate: e.target.value });
   }
 
-  function createEmptyDetails() {
+  function createEmptyDetail() {
     const newDetails = education.details ? [...education.details, ""] : [""];
+    setEducation({ ...education, details: newDetails });
+  }
+
+  function deleteTheLastDetail() {
+    if (!education.details) {
+      return;
+    }
+    const newDetails = [...education.details];
+    newDetails.pop();
     setEducation({ ...education, details: newDetails });
   }
 
@@ -207,9 +216,20 @@ export default function App() {
             <div className="detail-section">
               <div className="detail-section-header">
                 <p>Details</p>
-                <button onClick={createEmptyDetails} className="add-detail-btn">
-                  Add
-                </button>
+                <div className="detail-section-buttons">
+                  <button
+                    onClick={createEmptyDetail}
+                    className="add-detail-btn"
+                  >
+                    Add
+                  </button>
+                  <button
+                    onClick={deleteTheLastDetail}
+                    className="delete-detail-btn"
+                  >
+                    Remove Last
+                  </button>
+                </div>
               </div>
               <div className="details">
                 {education.details &&

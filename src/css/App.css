@@ -295,9 +295,18 @@ button.disabled {
   cursor: pointer;
 }
 
+.detail-section-header button.delete-detail-btn {
+  background-color: var(--danger);
+}
+
 .detail-section-header button:hover {
   opacity: 0.8;
   transform: translateY(-1px);
+}
+
+.detail-section-buttons {
+  display: flex;
+  gap: 0.5rem;
 }
 
 @media (min-width: 768px) {
