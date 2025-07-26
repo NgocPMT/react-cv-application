@@ -8,9 +8,10 @@ export default function App() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
+  const [education, setEducation] = useState({});
+
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [formIndex, setFormIndex] = useState(0);
@@ -41,16 +42,28 @@ export default function App() {
     setEmail(e.target.value);
   }
 
-  function handleAddress(e) {
-    setAddress(e.target.value);
-  }
-
   function handleCountry(e) {
     setCountry(e.target.value);
   }
 
   function handleCity(e) {
     setCity(e.target.value);
+  }
+
+  function handleTitle(e) {
+    setEducation({ ...education, title: e.target.value });
+  }
+
+  function handleSchoolName(e) {
+    setEducation({ ...education, schoolName: e.target.value });
+  }
+
+  function handleBeginDate(e) {
+    setEducation({ ...education, beginDate: e.target.value });
+  }
+
+  function handleEndDate(e) {
+    setEducation({ ...education, endDate: e.target.value });
   }
 
   function togglePreview() {
@@ -131,13 +144,6 @@ export default function App() {
                 onChange={handlePhone}
               />
             </FieldGroup>
-            <Field
-              title="Address"
-              type="text"
-              id="address"
-              value={address}
-              onChange={handleAddress}
-            />
             <FieldGroup>
               <Field
                 title="Country"
@@ -152,6 +158,38 @@ export default function App() {
                 id="city"
                 value={city}
                 onChange={handleCity}
+              />
+            </FieldGroup>
+          </Form>
+          <Form title={forms[1]} index={1} formIndex={formIndex}>
+            <Field
+              title="Title"
+              type="text"
+              id="title"
+              value={education.title}
+              onChange={handleTitle}
+            />
+            <Field
+              title="School Name"
+              type="text"
+              id="school-name"
+              value={education.schoolName}
+              onChange={handleSchoolName}
+            />
+            <FieldGroup>
+              <Field
+                title="Begin Date"
+                type="text"
+                id="begin-date"
+                value={education.beginDate}
+                onChange={handleBeginDate}
+              />
+              <Field
+                title="End Date"
+                type="text"
+                id="end-date"
+                value={education.endDate}
+                onChange={handleEndDate}
               />
             </FieldGroup>
           </Form>
@@ -200,8 +238,10 @@ export default function App() {
           <>
             <div className="cv-preview">
               <div className="cv-header">
-                <h1 className="cv-full-name">John Smith</h1>
-                <p className="cv-job-title">IT Project Manager</p>
+                <h1 className="cv-full-name">
+                  {fullName.trim().length > 0 ? fullName : "Your Name Here"}
+                </h1>
+                <p className="cv-job-title">{jobTitle || "Your job title"}</p>
               </div>
               <div className="cv-main">
                 <h2>Experience</h2>
@@ -238,9 +278,12 @@ export default function App() {
                 </div>
               </div>
               <div className="personal-info">
-                <p>Address: Portland, ME</p>
-                <p>Phone: 0364933038</p>
-                <p>Email: nathan.pham1505@gmail.com</p>
+                <p>
+                  Address: {country}
+                  {city && `, ${city}`}
+                </p>
+                <p>Phone: {phone}</p>
+                <p>Email: {email}</p>
               </div>
             </div>
             {isMobile && <button onClick={togglePreview}>Close</button>}
