@@ -204,19 +204,27 @@ export default function App() {
                 onChange={handleEndDate}
               />
             </FieldGroup>
-            <p>Details</p>
-            <button onClick={createEmptyDetails}>Add</button>
-            {education.details &&
-              education.details.map((detail, index) => (
-                <Field
-                  key={`${education.title}-field-${index}`}
-                  title={`Detail ${index + 1}`}
-                  type="text"
-                  id={`detail-${index + 1}`}
-                  value={detail}
-                  onChange={(e) => handleDetails(index, e)}
-                />
-              ))}
+            <div className="detail-section">
+              <div className="detail-section-header">
+                <p>Details</p>
+                <button onClick={createEmptyDetails} className="add-detail-btn">
+                  Add
+                </button>
+              </div>
+              <div className="details">
+                {education.details &&
+                  education.details.map((detail, index) => (
+                    <Field
+                      key={`${education.title}-field-${index}`}
+                      title={`Detail ${index + 1}`}
+                      type="text"
+                      id={`detail-${index + 1}`}
+                      value={detail}
+                      onChange={(e) => handleDetails(index, e)}
+                    />
+                  ))}
+              </div>
+            </div>
           </Form>
           <div className="buttons">
             {isMobile && (
