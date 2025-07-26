@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "../css/App.css";
 
 export default function App() {
+  const [jobTitle, setJobTitle] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -18,6 +19,10 @@ export default function App() {
   const forms = ["Personal Details", "Education", "Experience"];
   const isFirst = formIndex === 0;
   const isLast = formIndex === formCounts;
+
+  function handleJobTitle(e) {
+    setJobTitle(e.target.value);
+  }
 
   function handleFirstName(e) {
     setFirstName(e.target.value);
@@ -84,6 +89,13 @@ export default function App() {
     <div className="body-wrapper">
       <div className="form-container">
         <Form title={forms[0]} index={0} formIndex={formIndex}>
+          <Field
+            title="Job Title"
+            type="text"
+            id="job-title"
+            value={jobTitle}
+            onChange={handleJobTitle}
+          />
           <FieldGroup>
             <Field
               title="First Name"
@@ -174,15 +186,52 @@ export default function App() {
 
       {isMobile && isPreviewOpen && <div className="preview-backdrop"></div>}
       {(!isMobile || isPreviewOpen) && (
-        <div className="cv-preview">
-          <h1 className="cv-full-name">{fullName}</h1>
-          <p>Address: {address}</p>
-          <p>Phone: {phone}</p>
-          <p>Email: {email}</p>
-          <h2>Education</h2>
-          <h2>Experience</h2>
+        <>
+          <div className="cv-preview">
+            <div className="cv-header">
+              <h1 className="cv-full-name">John Smith</h1>
+              <p className="cv-job-title">IT Project Manager</p>
+            </div>
+            <div className="cv-main">
+              <h2>Experience</h2>
+              <div className="experience">
+                <p>2004/09 - 2006/12</p>
+                <div className="experience-details">
+                  <h3>Senior Project Manager</h3>
+                  <p className="company-name">Seton Hospital, ME</p>
+                  <ul>
+                    <li>
+                      Oversee all major hospital IT projects for 10+ years
+                    </li>
+                    <li>
+                      Oversee all major hospital IT projects for 10+ years
+                    </li>
+                    <li>
+                      Oversee all major hospital IT projects for 10+ years
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <h2>Education</h2>
+              <div className="education">
+                <p>1999/09 - 2001/05</p>
+                <div className="education-details">
+                  <h3>Master of Computer Science, University of Maryland</h3>
+                  <ul>
+                    <li>Graduated Summa Cum Laude</li>
+                    <li>Member of Student Association of Project Management</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div className="personal-info">
+              <p>Address: Portland, ME</p>
+              <p>Phone: 0364933038</p>
+              <p>Email: nathan.pham1505@gmail.com</p>
+            </div>
+          </div>
           {isMobile && <button onClick={togglePreview}>Close</button>}
-        </div>
+        </>
       )}
     </div>
   );
