@@ -187,6 +187,18 @@ export default function App() {
           </Form>
           <Form title={forms[1]} index={1} formIndex={formIndex}>
             <EducationForm
+              index={0}
+              {...education}
+              handleTitle={handleTitle}
+              handleSchoolName={handleSchoolName}
+              handleBeginDate={handleBeginDate}
+              handleEndDate={handleEndDate}
+              handleDetails={handleDetails}
+              createEmptyDetail={createEmptyDetail}
+              deleteTheLastDetail={deleteTheLastDetail}
+            />
+            <EducationForm
+              index={0}
               {...education}
               handleTitle={handleTitle}
               handleSchoolName={handleSchoolName}
@@ -289,7 +301,7 @@ export default function App() {
 
 function Form({ title, index, formIndex, children }) {
   return (
-    <section className={`form ${formIndex !== index && "hidden"}`}>
+    <section className={`form${formIndex !== index ? " hidden" : ""}`}>
       <h2 className="form-title">{title}</h2>
       {children}
     </section>
