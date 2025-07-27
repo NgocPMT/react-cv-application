@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import "../css/App.css";
+import Field from "./Field";
+import FieldGroup from "./FieldGroup";
 import Education from "./Education";
+import EducationForm from "./EducationForm";
 
 export default function App() {
   const [jobTitle, setJobTitle] = useState("");
@@ -183,68 +186,16 @@ export default function App() {
             </FieldGroup>
           </Form>
           <Form title={forms[1]} index={1} formIndex={formIndex}>
-            <Field
-              title="Title"
-              type="text"
-              id="title"
-              value={education.title}
-              onChange={handleTitle}
+            <EducationForm
+              {...education}
+              handleTitle={handleTitle}
+              handleSchoolName={handleSchoolName}
+              handleBeginDate={handleBeginDate}
+              handleEndDate={handleEndDate}
+              handleDetails={handleDetails}
+              createEmptyDetail={createEmptyDetail}
+              deleteTheLastDetail={deleteTheLastDetail}
             />
-            <Field
-              title="School Name"
-              type="text"
-              id="school-name"
-              value={education.schoolName}
-              onChange={handleSchoolName}
-            />
-            <FieldGroup>
-              <Field
-                title="Begin Date"
-                type="text"
-                id="begin-date"
-                value={education.beginDate}
-                onChange={handleBeginDate}
-              />
-              <Field
-                title="End Date"
-                type="text"
-                id="end-date"
-                value={education.endDate}
-                onChange={handleEndDate}
-              />
-            </FieldGroup>
-            <div className="detail-section">
-              <div className="detail-section-header">
-                <p>Details</p>
-                <div className="detail-section-buttons">
-                  <button
-                    onClick={createEmptyDetail}
-                    className="add-detail-btn"
-                  >
-                    Add
-                  </button>
-                  <button
-                    onClick={deleteTheLastDetail}
-                    className="delete-detail-btn"
-                  >
-                    Remove Last
-                  </button>
-                </div>
-              </div>
-              <div className="details">
-                {education.details &&
-                  education.details.map((detail, index) => (
-                    <Field
-                      key={`${education.title}-field-${index}`}
-                      title={`Detail ${index + 1}`}
-                      type="text"
-                      id={`detail-${index + 1}`}
-                      value={detail}
-                      onChange={(e) => handleDetails(index, e)}
-                    />
-                  ))}
-              </div>
-            </div>
           </Form>
           <div className="buttons">
             {isMobile && (
@@ -334,19 +285,6 @@ export default function App() {
       </div>
     </>
   );
-}
-
-function Field({ title, id, type, value, onChange }) {
-  return (
-    <div className="form-field">
-      <label htmlFor={id}>{title}</label>
-      <input type={type} value={value} onChange={onChange} id={id} />
-    </div>
-  );
-}
-
-function FieldGroup({ children }) {
-  return <div className="field-group">{children}</div>;
 }
 
 function Form({ title, index, formIndex, children }) {
