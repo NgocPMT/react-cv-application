@@ -28,10 +28,7 @@ export default function EducationForm({
   return (
     <div className="education-form">
       <div className="education-form-header">
-        <p>
-          Education {eduIndex + 1}
-          {title ? ` (${title})` : ""}
-        </p>
+        <p>{title ? title : `Education ${eduIndex + 1}`}</p>
         <div className="education-form-buttons">
           <button onClick={toggleIsShow}>{isShow ? "Hide" : "Show"}</button>
           <button onClick={deleteEducation}>Delete</button>
