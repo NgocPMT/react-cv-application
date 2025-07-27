@@ -17,6 +17,7 @@ export default function EducationForm({
   handleDetails,
   createEmptyDetail,
   deleteTheLastDetail,
+  deleteEducation,
 }) {
   const [isShow, setIsShow] = useState(false);
 
@@ -31,7 +32,10 @@ export default function EducationForm({
           Education {eduIndex + 1}
           {title ? ` (${title})` : ""}
         </p>
-        <button onClick={toggleIsShow}>{isShow ? "Hide" : "Show"}</button>
+        <div className="education-form-buttons">
+          <button onClick={toggleIsShow}>{isShow ? "Hide" : "Show"}</button>
+          <button onClick={deleteEducation}>Delete</button>
+        </div>
       </div>
       {isShow && (
         <div className="education-form-content">

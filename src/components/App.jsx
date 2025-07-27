@@ -126,10 +126,8 @@ export default function App() {
     setEducations([...educations, { id: crypto.randomUUID() }]);
   }
 
-  function deleteTheLastEducation() {
-    const newEducations = [...educations];
-    newEducations.pop();
-    setEducations(newEducations);
+  function deleteEducation(eduIndex) {
+    setEducations(educations.filter((_, index) => index !== eduIndex));
   }
 
   function togglePreview() {
@@ -229,13 +227,7 @@ export default function App() {
           </Form>
           <Form title={forms[1]} index={1} formIndex={formIndex}>
             <div className="educations-action-buttons">
-              <button onClick={createEmptyEducation}>Add</button>
-              <button
-                onClick={deleteTheLastEducation}
-                className="delete-education"
-              >
-                Remove Last
-              </button>
+              <button onClick={createEmptyEducation}>Add New</button>
             </div>
 
             {educations && educations.length > 0 ? (
@@ -251,6 +243,7 @@ export default function App() {
                   handleDetails={handleDetails}
                   createEmptyDetail={() => createEmptyDetail(eduIndex)}
                   deleteTheLastDetail={() => deleteTheLastDetail(eduIndex)}
+                  deleteEducation={() => deleteEducation(eduIndex)}
                 />
               ))
             ) : (
