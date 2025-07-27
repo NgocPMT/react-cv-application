@@ -15,6 +15,7 @@ export default function App() {
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
   const [education, setEducation] = useState({});
+  const [educations, setEducations] = useState([]);
 
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -88,6 +89,16 @@ export default function App() {
     const newDetails = [...education.details];
     newDetails[index] = e.target.value;
     setEducation({ ...education, details: newDetails });
+  }
+
+  function createEmptyEducation() {
+    setEducations([...educations, {}]);
+  }
+
+  function deleteTheLastEducation() {
+    const newEducations = [...educations];
+    newEducations.pop();
+    setEducations(newEducations);
   }
 
   function togglePreview() {
@@ -186,28 +197,33 @@ export default function App() {
             </FieldGroup>
           </Form>
           <Form title={forms[1]} index={1} formIndex={formIndex}>
-            <EducationForm
-              index={0}
-              {...education}
-              handleTitle={handleTitle}
-              handleSchoolName={handleSchoolName}
-              handleBeginDate={handleBeginDate}
-              handleEndDate={handleEndDate}
-              handleDetails={handleDetails}
-              createEmptyDetail={createEmptyDetail}
-              deleteTheLastDetail={deleteTheLastDetail}
-            />
-            <EducationForm
-              index={0}
-              {...education}
-              handleTitle={handleTitle}
-              handleSchoolName={handleSchoolName}
-              handleBeginDate={handleBeginDate}
-              handleEndDate={handleEndDate}
-              handleDetails={handleDetails}
-              createEmptyDetail={createEmptyDetail}
-              deleteTheLastDetail={deleteTheLastDetail}
-            />
+            <div className="educations-action-buttons">
+              <button onClick={createEmptyEducation}>Add</button>
+              <button
+                onClick={deleteTheLastEducation}
+                className="delete-education"
+              >
+                Remove Last
+              </button>
+            </div>
+
+            {educations && educations.length > 0 ? (
+              educations.map((education, index) => (
+                <EducationForm
+                  index={index}
+                  {...education}
+                  handleTitle={handleTitle}
+                  handleSchoolName={handleSchoolName}
+                  handleBeginDate={handleBeginDate}
+                  handleEndDate={handleEndDate}
+                  handleDetails={handleDetails}
+                  createEmptyDetail={createEmptyDetail}
+                  deleteTheLastDetail={deleteTheLastDetail}
+                />
+              ))
+            ) : (
+              <p className="message-empty">There is no qualifications yet...</p>
+            )}
           </Form>
           <div className="buttons">
             {isMobile && (
