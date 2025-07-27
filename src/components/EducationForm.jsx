@@ -33,7 +33,6 @@ export default function EducationForm({
         </p>
         <button onClick={toggleIsShow}>{isShow ? "Hide" : "Show"}</button>
       </div>
-
       {isShow && (
         <div className="education-form-content">
           <Field
