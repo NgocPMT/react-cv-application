@@ -4,7 +4,7 @@ import FieldGroup from "./FieldGroup";
 import "../css/EducationForm.css";
 
 export default function EducationForm({
-  index,
+  eduIndex,
   title,
   schoolName,
   beginDate,
@@ -28,8 +28,8 @@ export default function EducationForm({
     <div className="education-form">
       <div className="education-form-header">
         <p>
-          Education {index + 1}
-          {title ? `(${title})` : ""}
+          Education {eduIndex + 1}
+          {title ? ` (${title})` : ""}
         </p>
         <button onClick={toggleIsShow}>{isShow ? "Hide" : "Show"}</button>
       </div>
@@ -89,7 +89,7 @@ export default function EducationForm({
                     type="text"
                     id={`detail-${index + 1}`}
                     value={detail}
-                    onChange={(e) => handleDetails(index, e)}
+                    onChange={(e) => handleDetails(eduIndex, index, e)}
                   />
                 ))}
             </div>

@@ -14,7 +14,6 @@ export default function App() {
   const [phone, setPhone] = useState("");
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
-  const [education, setEducation] = useState({});
   const [educations, setEducations] = useState([]);
 
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
@@ -55,44 +54,76 @@ export default function App() {
     setCity(e.target.value);
   }
 
-  function handleTitle(e) {
-    setEducation({ ...education, title: e.target.value });
+  function handleTitle(eduIndex, e) {
+    setEducations(
+      educations.map((education, i) =>
+        i === eduIndex ? { ...education, title: e.target.value } : education
+      )
+    );
   }
 
-  function handleSchoolName(e) {
-    setEducation({ ...education, schoolName: e.target.value });
+  function handleSchoolName(eduIndex, e) {
+    setEducations(
+      educations.map((education, i) =>
+        i === eduIndex
+          ? { ...education, schoolName: e.target.value }
+          : education
+      )
+    );
   }
 
-  function handleBeginDate(e) {
-    setEducation({ ...education, beginDate: e.target.value });
+  function handleBeginDate(eduIndex, e) {
+    setEducations(
+      educations.map((education, i) =>
+        i === eduIndex ? { ...education, beginDate: e.target.value } : education
+      )
+    );
   }
 
-  function handleEndDate(e) {
-    setEducation({ ...education, endDate: e.target.value });
+  function handleEndDate(eduIndex, e) {
+    setEducations(
+      educations.map((education, i) =>
+        i === eduIndex ? { ...education, endDate: e.target.value } : education
+      )
+    );
   }
 
-  function createEmptyDetail() {
-    const newDetails = education.details ? [...education.details, ""] : [""];
-    setEducation({ ...education, details: newDetails });
+  function createEmptyDetail(eduIndex) {
+    const newDetails = educations[eduIndex].details
+      ? [...educations[eduIndex].details, ""]
+      : [""];
+    setEducations(
+      educations.map((education, i) =>
+        i === eduIndex ? { ...education, details: newDetails } : education
+      )
+    );
   }
 
-  function deleteTheLastDetail() {
-    if (!education.details) {
+  function deleteTheLastDetail(eduIndex) {
+    if (!educations[eduIndex].details) {
       return;
     }
-    const newDetails = [...education.details];
+    const newDetails = [...educations[eduIndex].details];
     newDetails.pop();
-    setEducation({ ...education, details: newDetails });
+    setEducations(
+      educations.map((education, i) =>
+        i === eduIndex ? { ...education, details: newDetails } : education
+      )
+    );
   }
 
-  function handleDetails(index, e) {
-    const newDetails = [...education.details];
-    newDetails[index] = e.target.value;
-    setEducation({ ...education, details: newDetails });
+  function handleDetails(eduIndex, detailIndex, e) {
+    const newDetails = [...educations[eduIndex].details];
+    newDetails[detailIndex] = e.target.value;
+    setEducations(
+      educations.map((education, i) =>
+        i === eduIndex ? { ...education, details: newDetails } : education
+      )
+    );
   }
 
   function createEmptyEducation() {
-    setEducations([...educations, {}]);
+    setEducations([...educations, { id: crypto.randomUUID() }]);
   }
 
   function deleteTheLastEducation() {
@@ -208,17 +239,18 @@ export default function App() {
             </div>
 
             {educations && educations.length > 0 ? (
-              educations.map((education, index) => (
+              educations.map((education, eduIndex) => (
                 <EducationForm
-                  index={index}
+                  key={`form-${education.id}`}
+                  eduIndex={eduIndex}
                   {...education}
-                  handleTitle={handleTitle}
-                  handleSchoolName={handleSchoolName}
-                  handleBeginDate={handleBeginDate}
-                  handleEndDate={handleEndDate}
+                  handleTitle={(e) => handleTitle(eduIndex, e)}
+                  handleSchoolName={(e) => handleSchoolName(eduIndex, e)}
+                  handleBeginDate={(e) => handleBeginDate(eduIndex, e)}
+                  handleEndDate={(e) => handleEndDate(eduIndex, e)}
                   handleDetails={handleDetails}
-                  createEmptyDetail={createEmptyDetail}
-                  deleteTheLastDetail={deleteTheLastDetail}
+                  createEmptyDetail={() => createEmptyDetail(eduIndex)}
+                  deleteTheLastDetail={() => deleteTheLastDetail(eduIndex)}
                 />
               ))
             ) : (
@@ -296,7 +328,11 @@ export default function App() {
                   </div>
                 </div>
                 <h2>Education</h2>
-                <Education {...education} />
+                {educations &&
+                  educations.length > 0 &&
+                  educations.map((education) => (
+                    <Education key={education.id} {...education} />
+                  ))}
               </div>
               <div className="personal-info">
                 <p>
