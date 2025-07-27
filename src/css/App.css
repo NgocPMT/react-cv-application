@@ -212,10 +212,6 @@ button.disabled {
   margin-top: 0.25rem;
 }
 
-.experience {
-  margin-bottom: 1rem;
-}
-
 .cv-job-title {
   color: var(--bg);
 }
@@ -240,16 +236,6 @@ button.disabled {
   background-color: var(--bg);
   grid-area: 2 / 2 / 3 / -1;
   padding: 0.5rem;
-}
-
-.cv-preview .experience {
-  display: grid;
-  grid-template-columns: 2fr 8fr;
-  gap: 0.25rem;
-}
-
-.cv-preview .experience p {
-  font-weight: bold;
 }
 
 .cv-preview ul {

@@ -1,0 +1,10 @@
+.cv-preview .experience {
+  display: grid;
+  grid-template-columns: 2fr 8fr;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.cv-preview .experience p {
+  font-weight: bold;
+}

@@ -5,6 +5,7 @@ import Field from "./Field";
 import FieldGroup from "./FieldGroup";
 import Education from "./Education";
 import EducationForm from "./EducationForm";
+import Experience from "./Experience";
 
 export default function App() {
   const [jobTitle, setJobTitle] = useState("");
@@ -302,24 +303,7 @@ export default function App() {
               </div>
               <div className="cv-main">
                 <h2>Experience</h2>
-                <div className="experience">
-                  <p>2004/09 - 2006/12</p>
-                  <div className="experience-details">
-                    <h3>Senior Project Manager</h3>
-                    <p className="company-name">Seton Hospital, ME</p>
-                    <ul>
-                      <li>
-                        Oversee all major hospital IT projects for 10+ years
-                      </li>
-                      <li>
-                        Oversee all major hospital IT projects for 10+ years
-                      </li>
-                      <li>
-                        Oversee all major hospital IT projects for 10+ years
-                      </li>
-                    </ul>
-                  </div>
-                </div>
+                <Experience />
                 <h2>Education</h2>
                 {educations &&
                   educations.length > 0 &&
