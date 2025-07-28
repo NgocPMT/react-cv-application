@@ -4,6 +4,8 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
+  max-width: 1800px;
+  margin: 0 auto;
 }
 
 header p {

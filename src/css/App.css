@@ -291,12 +291,28 @@ button.disabled {
 }
 
 @media (min-width: 768px) {
+  .field-group {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .cv-preview {
+    width: 60%;
+    min-height: 60%;
+    left: 20%;
+    top: 20%;
+  }
+}
+
+@media (min-width: 1024px) {
   .body-wrapper {
     padding: 1.5rem 3.5rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto 1fr;
     gap: 2rem;
+    max-width: 1441px;
+    margin: 0 auto;
   }
 
   .form-container {
@@ -334,6 +350,13 @@ button.disabled {
     width: 100%;
   }
 
+  .field-group {
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 1200px) {
   .field-group {
     flex-direction: row;
     justify-content: space-between;

@@ -22,7 +22,10 @@ export default function App() {
   const [showingExp, setShowingExp] = useState(0);
 
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const desktopBreakpoint = 1024;
+  const [isMobile, setIsMobile] = useState(
+    window.innerWidth < desktopBreakpoint
+  );
   const [formIndex, setFormIndex] = useState(0);
 
   const fullName = firstName + " " + lastName;
@@ -232,7 +235,7 @@ export default function App() {
   }
 
   function handleResize() {
-    const mobile = window.innerWidth < 768;
+    const mobile = window.innerWidth < desktopBreakpoint;
     setIsMobile(mobile);
 
     if (mobile) {
@@ -413,13 +416,11 @@ export default function App() {
         </div>
 
         {isMobile && isPreviewOpen && (
-          <div
+          <button
             className="preview-backdrop"
             onClick={togglePreview}
-            role="button"
             aria-label="Close preview"
-            tabIndex={0}
-          ></div>
+          ></button>
         )}
         {(!isMobile || isPreviewOpen) && (
           <>
@@ -454,7 +455,6 @@ export default function App() {
                 <p>Email: {email}</p>
               </div>
             </div>
-            {isMobile && <button onClick={togglePreview}>Close</button>}
           </>
         )}
       </div>
