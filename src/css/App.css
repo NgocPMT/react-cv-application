@@ -65,6 +65,7 @@ body {
   background-color: var(--bg);
   padding: 1.5rem 2rem;
   position: relative;
+  min-height: 100vh;
 }
 
 section.form {
@@ -196,7 +197,12 @@ button.disabled {
   min-height: 11in !important;
   min-width: 8.5in !important;
   opacity: 1 !important;
-  position: static;
+  position: static !important;
+  font-size: 0.875rem !important;
+}
+
+.cv-preview.pdf-export-mode > * {
+  padding: 1.5rem !important;
 }
 
 .cv-preview p {
@@ -222,21 +228,19 @@ button.disabled {
   color: var(--text-muted);
 }
 
+.cv-preview > * {
+  padding: 0.75rem;
+}
+
 .cv-preview .cv-header {
   background-color: var(--primary);
   color: var(--bg-light);
   grid-area: 1 / 1 / 2 / span 2;
-  padding: 0.5rem;
-}
-
-.cv-main {
-  padding: 0.5rem;
 }
 
 .cv-preview .personal-info {
   background-color: var(--bg);
   grid-area: 2 / 2 / 3 / -1;
-  padding: 0.5rem;
 }
 
 .cv-preview ul {
@@ -343,6 +347,7 @@ button.disabled {
 
   .form-container {
     grid-area: 1 / 1 / 2 / 2;
+    min-height: auto;
   }
 
   .cv-preview {
@@ -356,16 +361,8 @@ button.disabled {
     overflow: hidden;
   }
 
-  .cv-preview .cv-header {
-    padding: 1rem;
-  }
-
-  .cv-preview .cv-main {
-    padding: 1rem;
-  }
-
-  .cv-preview .personal-info {
-    padding: 1rem;
+  .cv-preview > * {
+    padding: 1.25rem;
   }
 
   .form-container {
