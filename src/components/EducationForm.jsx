@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Field from "./Field";
 import FieldGroup from "./FieldGroup";
 import "../css/EducationForm.css";
@@ -18,11 +17,11 @@ export default function EducationForm({
   createEmptyDetail,
   deleteTheLastDetail,
   deleteEducation,
+  isShow,
+  handleShowingEdu,
 }) {
-  const [isShow, setIsShow] = useState(false);
-
   function toggleIsShow() {
-    setIsShow(!isShow);
+    !isShow ? handleShowingEdu(eduIndex) : handleShowingEdu(-1);
   }
 
   return (

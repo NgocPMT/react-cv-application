@@ -17,7 +17,9 @@ export default function App() {
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
   const [educations, setEducations] = useState([]);
+  const [showingEdu, setShowingEdu] = useState(0);
   const [experiences, setExperiences] = useState([]);
+  const [showingExp, setShowingExp] = useState(0);
 
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -28,6 +30,14 @@ export default function App() {
   const formCounts = forms.length;
   const isFirst = formIndex === 0;
   const isLast = formIndex === formCounts - 1;
+
+  function handleShowingEdu(eduIndex) {
+    setShowingEdu(eduIndex);
+  }
+
+  function handleShowingExp(expIndex) {
+    setShowingExp(expIndex);
+  }
 
   function handleJobTitle(e) {
     setJobTitle(e.target.value);
@@ -333,6 +343,8 @@ export default function App() {
                     deleteTheLastDetail(eduIndex, "edu")
                   }
                   deleteEducation={() => deleteEducation(eduIndex)}
+                  isShow={showingEdu === eduIndex}
+                  handleShowingEdu={handleShowingEdu}
                 />
               ))
             ) : (
@@ -360,6 +372,8 @@ export default function App() {
                     deleteTheLastDetail(expIndex, "exp")
                   }
                   deleteExperience={() => deleteExperience(expIndex)}
+                  isShow={showingExp === expIndex}
+                  handleShowingExp={handleShowingExp}
                 />
               ))
             ) : (

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Field from "./Field";
 import FieldGroup from "./FieldGroup";
 import "../css/ExperienceForm.css";
@@ -18,11 +17,11 @@ export default function ExperienceForm({
   createEmptyDetail,
   deleteTheLastDetail,
   deleteExperience,
+  isShow,
+  handleShowingExp,
 }) {
-  const [isShow, setIsShow] = useState(false);
-
   function toggleIsShow() {
-    setIsShow(!isShow);
+    !isShow ? handleShowingExp(expIndex) : handleShowingExp(-1);
   }
 
   return (
