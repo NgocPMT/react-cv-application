@@ -29,7 +29,7 @@
 }
 
 .education-form-header button {
-  background-color: var(--primary);
+  background-color: var(--info);
   color: var(--bg-light);
   border: none;
   border-radius: 0.25rem;

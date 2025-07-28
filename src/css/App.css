@@ -32,42 +32,10 @@
   --border-muted: oklch(0.7 0.01 210);
   --primary: oklch(0.4 0.1 210);
   --secondary: oklch(0.4 0.1 30);
-  --danger: oklch(0.5 0.05 30);
+  --danger: oklch(0.5 0.07 30);
   --warning: oklch(0.5 0.05 100);
   --success: oklch(0.5 0.05 160);
   --info: oklch(0.5 0.05 260);
-}
-body.dark {
-  /* hsl (fallback color) */
-  --bg-dark: hsl(191 26% 1%);
-  --bg: hsl(189 16% 4%);
-  --bg-light: hsl(189 9% 8%);
-  --text: hsl(189 36% 94%);
-  --text-muted: hsl(189 6% 69%);
-  --highlight: hsl(189 5% 38%);
-  --border: hsl(189 6% 28%);
-  --border-muted: hsl(189 9% 17%);
-  --primary: hsl(189 59% 59%);
-  --secondary: hsl(9 69% 73%);
-  --danger: hsl(9 26% 64%);
-  --warning: hsl(52 19% 57%);
-  --success: hsl(146 17% 59%);
-  --info: hsl(217 28% 65%);
-  /* oklch */
-  --bg-dark: oklch(0.1 0.005 210);
-  --bg: oklch(0.15 0.005 210);
-  --bg-light: oklch(0.2 0.005 210);
-  --text: oklch(0.96 0.01 210);
-  --text-muted: oklch(0.76 0.01 210);
-  --highlight: oklch(0.5 0.01 210);
-  --border: oklch(0.4 0.01 210);
-  --border-muted: oklch(0.3 0.01 210);
-  --primary: oklch(0.76 0.1 210);
-  --secondary: oklch(0.76 0.1 30);
-  --danger: oklch(0.7 0.05 30);
-  --warning: oklch(0.7 0.05 100);
-  --success: oklch(0.7 0.05 160);
-  --info: oklch(0.7 0.05 260);
 }
 
 .hidden {
@@ -117,15 +85,22 @@ section.form {
 .form-field > label {
   font-weight: bold;
   font-size: 1rem;
+  color: var(--text-muted);
 }
 
 .form-field > input {
   padding: 0.75rem;
   font-size: 1rem;
-  border: var(--border) 1px solid;
+  border: none;
   border-radius: 0.5rem;
   width: 100%;
   margin-top: 0.75rem;
+  background-color: var(--bg-dark);
+}
+
+.form-field > input:focus {
+  outline: var(--primary) 2px solid;
+  box-shadow: 0 0px 6px rgba(0, 0, 0, 0.3);
 }
 
 .buttons {
@@ -353,6 +328,7 @@ button.disabled {
 
   .form-container {
     border: var(--border) 1px solid;
+    border-top: var(--highlight) 1px solid;
     border-radius: 0.75rem;
     box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.3);
     width: 100%;
