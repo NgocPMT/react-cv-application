@@ -1,23 +1,23 @@
 import { useState } from "react";
 import Field from "./Field";
 import FieldGroup from "./FieldGroup";
-import "../css/EducationForm.css";
+import "../css/ExperienceForm.css";
 
-export default function EducationForm({
-  eduIndex,
+export default function ExperienceForm({
+  expIndex,
   title,
-  schoolName,
+  companyName,
   beginDate,
   endDate,
   details,
   handleTitle,
-  handleSchoolName,
+  handleCompanyName,
   handleBeginDate,
   handleEndDate,
   handleDetails,
   createEmptyDetail,
   deleteTheLastDetail,
-  deleteEducation,
+  deleteExperience,
 }) {
   const [isShow, setIsShow] = useState(false);
 
@@ -26,29 +26,29 @@ export default function EducationForm({
   }
 
   return (
-    <div className="education-form">
-      <div className="education-form-header">
-        <p>{title ? title : `Education ${eduIndex + 1}`}</p>
-        <div className="education-form-buttons">
+    <div className="experience-form">
+      <div className="experience-form-header">
+        <p>{title ? title : `Experience ${expIndex + 1}`}</p>
+        <div className="experience-form-buttons">
           <button onClick={toggleIsShow}>{isShow ? "Hide" : "Show"}</button>
-          <button onClick={deleteEducation}>Delete</button>
+          <button onClick={deleteExperience}>Delete</button>
         </div>
       </div>
       {isShow && (
-        <div className="education-form-content">
+        <div className="experience-form-content">
           <Field
-            title="Title"
+            title="Job Title"
             type="text"
-            id="title"
+            id="exp-job-tittle"
             value={title}
             onChange={handleTitle}
           />
           <Field
-            title="School Name"
+            title="Company Name"
             type="text"
-            id="school-name"
-            value={schoolName}
-            onChange={handleSchoolName}
+            id="company-name"
+            value={companyName}
+            onChange={handleCompanyName}
           />
           <FieldGroup>
             <Field
@@ -90,7 +90,7 @@ export default function EducationForm({
                     type="text"
                     id={`detail-${index + 1}`}
                     value={detail}
-                    onChange={(e) => handleDetails(eduIndex, index, e, "edu")}
+                    onChange={(e) => handleDetails(expIndex, index, e, "exp")}
                   />
                 ))}
             </div>

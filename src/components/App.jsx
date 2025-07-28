@@ -6,6 +6,7 @@ import FieldGroup from "./FieldGroup";
 import Education from "./Education";
 import EducationForm from "./EducationForm";
 import Experience from "./Experience";
+import ExperienceForm from "./ExperienceForm";
 
 export default function App() {
   const [jobTitle, setJobTitle] = useState("");
@@ -16,16 +17,17 @@ export default function App() {
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
   const [educations, setEducations] = useState([]);
+  const [experiences, setExperiences] = useState([]);
 
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [formIndex, setFormIndex] = useState(0);
 
   const fullName = firstName + " " + lastName;
-  const formCounts = 2;
   const forms = ["Personal Details", "Education", "Experience"];
+  const formCounts = forms.length;
   const isFirst = formIndex === 0;
-  const isLast = formIndex === formCounts;
+  const isLast = formIndex === formCounts - 1;
 
   function handleJobTitle(e) {
     setJobTitle(e.target.value);
@@ -55,12 +57,20 @@ export default function App() {
     setCity(e.target.value);
   }
 
-  function handleTitle(eduIndex, e) {
-    setEducations(
-      educations.map((education, i) =>
-        i === eduIndex ? { ...education, title: e.target.value } : education
-      )
-    );
+  function handleTitle(index, e, section) {
+    if (section === "edu") {
+      setEducations(
+        educations.map((education, i) =>
+          i === index ? { ...education, title: e.target.value } : education
+        )
+      );
+    } else {
+      setExperiences(
+        experiences.map((experience, i) =>
+          i === index ? { ...experience, title: e.target.value } : experience
+        )
+      );
+    }
   }
 
   function handleSchoolName(eduIndex, e) {
@@ -73,54 +83,116 @@ export default function App() {
     );
   }
 
-  function handleBeginDate(eduIndex, e) {
-    setEducations(
-      educations.map((education, i) =>
-        i === eduIndex ? { ...education, beginDate: e.target.value } : education
+  function handleCompanyName(expIndex, e) {
+    setExperiences(
+      experiences.map((experience, i) =>
+        i === expIndex
+          ? { ...experience, companyName: e.target.value }
+          : experience
       )
     );
   }
 
-  function handleEndDate(eduIndex, e) {
-    setEducations(
-      educations.map((education, i) =>
-        i === eduIndex ? { ...education, endDate: e.target.value } : education
-      )
-    );
-  }
-
-  function createEmptyDetail(eduIndex) {
-    const newDetails = educations[eduIndex].details
-      ? [...educations[eduIndex].details, ""]
-      : [""];
-    setEducations(
-      educations.map((education, i) =>
-        i === eduIndex ? { ...education, details: newDetails } : education
-      )
-    );
-  }
-
-  function deleteTheLastDetail(eduIndex) {
-    if (!educations[eduIndex].details) {
-      return;
+  function handleBeginDate(index, e, section) {
+    if (section === "edu") {
+      setEducations(
+        educations.map((education, i) =>
+          i === index ? { ...education, beginDate: e.target.value } : education
+        )
+      );
+    } else {
+      setExperiences(
+        experiences.map((experience, i) =>
+          i === index
+            ? { ...experience, beginDate: e.target.value }
+            : experience
+        )
+      );
     }
-    const newDetails = [...educations[eduIndex].details];
-    newDetails.pop();
-    setEducations(
-      educations.map((education, i) =>
-        i === eduIndex ? { ...education, details: newDetails } : education
-      )
-    );
   }
 
-  function handleDetails(eduIndex, detailIndex, e) {
-    const newDetails = [...educations[eduIndex].details];
-    newDetails[detailIndex] = e.target.value;
-    setEducations(
-      educations.map((education, i) =>
-        i === eduIndex ? { ...education, details: newDetails } : education
-      )
-    );
+  function handleEndDate(index, e, section) {
+    if (section === "edu") {
+      setEducations(
+        educations.map((education, i) =>
+          i === index ? { ...education, endDate: e.target.value } : education
+        )
+      );
+    } else {
+      setExperiences(
+        experiences.map((experience, i) =>
+          i === index ? { ...experience, endDate: e.target.value } : experience
+        )
+      );
+    }
+  }
+
+  function createEmptyDetail(index, section) {
+    if (section === "edu") {
+      const newDetails = educations[index].details
+        ? [...educations[index].details, ""]
+        : [""];
+      setEducations(
+        educations.map((education, i) =>
+          i === index ? { ...education, details: newDetails } : education
+        )
+      );
+    } else {
+      const newDetails = experiences[index].details
+        ? [...experiences[index].details, ""]
+        : [""];
+      setExperiences(
+        experiences.map((experience, i) =>
+          i === index ? { ...experience, details: newDetails } : experience
+        )
+      );
+    }
+  }
+
+  function deleteTheLastDetail(index, section) {
+    if (section === "edu") {
+      if (!educations[index].details) {
+        return;
+      }
+      const newDetails = [...educations[index].details];
+      newDetails.pop();
+      setEducations(
+        educations.map((education, i) =>
+          i === index ? { ...education, details: newDetails } : education
+        )
+      );
+    } else {
+      if (!experiences[index].details) {
+        return;
+      }
+      const newDetails = [...experiences[index].details];
+      newDetails.pop();
+      setExperiences(
+        experiences.map((experience, i) =>
+          i === index ? { ...experience, details: newDetails } : experience
+        )
+      );
+    }
+  }
+
+  function handleDetails(index, detailIndex, e, section) {
+    if (section === "edu") {
+      const newDetails = [...educations[index].details];
+      newDetails[detailIndex] = e.target.value;
+      setEducations(
+        educations.map((education, i) =>
+          i === index ? { ...education, details: newDetails } : education
+        )
+      );
+    } else {
+      const newDetails = [...experiences[index].details];
+      newDetails[detailIndex] = e.target.value;
+      setExperiences(
+        experiences.map((experience, i) =>
+          i === index ? { ...experience, details: newDetails } : experience
+        )
+      );
+    }
   }
 
   function createEmptyEducation() {
@@ -128,7 +200,21 @@ export default function App() {
   }
 
   function deleteEducation(eduIndex) {
+    if (!educations || educations.length === 0) {
+      return;
+    }
     setEducations(educations.filter((_, index) => index !== eduIndex));
+  }
+
+  function createEmptyExperience() {
+    setExperiences([...experiences, { id: crypto.randomUUID() }]);
+  }
+
+  function deleteExperience(expIndex) {
+    if (!experiences || experiences.length === 0) {
+      return;
+    }
+    setExperiences(experiences.filter((_, index) => index !== expIndex));
   }
 
   function togglePreview() {
@@ -153,7 +239,7 @@ export default function App() {
   }
 
   function handleNext() {
-    if (formIndex < formCounts) {
+    if (formIndex < formCounts - 1) {
       setFormIndex(formIndex + 1);
     }
   }
@@ -170,13 +256,6 @@ export default function App() {
       <div className="body-wrapper">
         <div className="form-container">
           <Form title={forms[0]} index={0} formIndex={formIndex}>
-            <Field
-              title="Job Title"
-              type="text"
-              id="job-title"
-              value={jobTitle}
-              onChange={handleJobTitle}
-            />
             <FieldGroup>
               <Field
                 title="First Name"
@@ -193,6 +272,13 @@ export default function App() {
                 onChange={handleLastName}
               />
             </FieldGroup>
+            <Field
+              title="Job Title"
+              type="text"
+              id="job-title"
+              value={jobTitle}
+              onChange={handleJobTitle}
+            />
             <FieldGroup>
               <Field
                 title="Email"
@@ -227,7 +313,7 @@ export default function App() {
             </FieldGroup>
           </Form>
           <Form title={forms[1]} index={1} formIndex={formIndex}>
-            <div className="educations-action-buttons">
+            <div className="form-action-buttons">
               <button onClick={createEmptyEducation}>Add New</button>
             </div>
 
@@ -237,18 +323,47 @@ export default function App() {
                   key={`form-${education.id}`}
                   eduIndex={eduIndex}
                   {...education}
-                  handleTitle={(e) => handleTitle(eduIndex, e)}
+                  handleTitle={(e) => handleTitle(eduIndex, e, "edu")}
                   handleSchoolName={(e) => handleSchoolName(eduIndex, e)}
-                  handleBeginDate={(e) => handleBeginDate(eduIndex, e)}
-                  handleEndDate={(e) => handleEndDate(eduIndex, e)}
+                  handleBeginDate={(e) => handleBeginDate(eduIndex, e, "edu")}
+                  handleEndDate={(e) => handleEndDate(eduIndex, e, "edu")}
                   handleDetails={handleDetails}
-                  createEmptyDetail={() => createEmptyDetail(eduIndex)}
-                  deleteTheLastDetail={() => deleteTheLastDetail(eduIndex)}
+                  createEmptyDetail={() => createEmptyDetail(eduIndex, "edu")}
+                  deleteTheLastDetail={() =>
+                    deleteTheLastDetail(eduIndex, "edu")
+                  }
                   deleteEducation={() => deleteEducation(eduIndex)}
                 />
               ))
             ) : (
               <p className="message-empty">There is no qualifications yet...</p>
+            )}
+          </Form>
+          <Form title={forms[2]} index={2} formIndex={formIndex}>
+            <div className="form-action-buttons">
+              <button onClick={createEmptyExperience}>Add New</button>
+            </div>
+
+            {experiences && experiences.length > 0 ? (
+              experiences.map((experience, expIndex) => (
+                <ExperienceForm
+                  key={`form-${experience.id}`}
+                  expIndex={expIndex}
+                  {...experience}
+                  handleTitle={(e) => handleTitle(expIndex, e, "exp")}
+                  handleCompanyName={(e) => handleCompanyName(expIndex, e)}
+                  handleBeginDate={(e) => handleBeginDate(expIndex, e, "exp")}
+                  handleEndDate={(e) => handleEndDate(expIndex, e, "exp")}
+                  handleDetails={handleDetails}
+                  createEmptyDetail={() => createEmptyDetail(expIndex, "exp")}
+                  deleteTheLastDetail={() =>
+                    deleteTheLastDetail(expIndex, "exp")
+                  }
+                  deleteExperience={() => deleteExperience(expIndex)}
+                />
+              ))
+            ) : (
+              <p className="message-empty">There is no experiences yet...</p>
             )}
           </Form>
           <div className="buttons">
@@ -277,7 +392,7 @@ export default function App() {
                 >
                   Next
                 </button>
-                <p>{formIndex < formCounts ? forms[formIndex + 1] : ""}</p>
+                <p>{formIndex < formCounts - 1 ? forms[formIndex + 1] : ""}</p>
               </div>
             </div>
           </div>
@@ -303,7 +418,12 @@ export default function App() {
               </div>
               <div className="cv-main">
                 <h2>Experience</h2>
-                <Experience />
+                {experiences &&
+                  experiences.length > 0 &&
+                  experiences.map((experience) => (
+                    <Experience key={experience.id} {...experience} />
+                  ))}
+
                 <h2>Education</h2>
                 {educations &&
                   educations.length > 0 &&

@@ -20,10 +20,9 @@ export default function Education({
         </h3>
         {details && (
           <ul>
-            {details.map(
-              (detail, index) =>
-                detail.length > 0 && <li key={`${title}-${index}`}>{detail}</li>
-            )}
+            {details.map((detail, index) => (
+              <li key={`${title}-${index}`}>{detail}</li>
+            ))}
           </ul>
         )}
       </div>

@@ -272,7 +272,7 @@ button.disabled {
 }
 
 .detail-section-header button,
-.educations-action-buttons button {
+.form-action-buttons button {
   background-color: var(--primary);
   color: var(--bg-light);
   padding: 0.5rem 1rem;
@@ -283,28 +283,28 @@ button.disabled {
 }
 
 .detail-section-header button.delete-detail-btn,
-.educations-action-buttons button.delete-education {
+.form-action-buttons button.delete-education {
   background-color: var(--danger);
 }
 
 .detail-section-header button:hover,
-.educations-action-buttons button:hover {
+.form-action-buttons button:hover {
   opacity: 0.8;
   transform: translateY(-1px);
 }
 
 .detail-section-buttons,
-.educations-action-buttons {
+.form-action-buttons {
   display: flex;
   gap: 0.5rem;
 }
 
-.educations-action-buttons {
+.form-action-buttons {
   width: 100%;
   justify-content: flex-end;
 }
 
-.educations-action-buttons button {
+.form-action-buttons button {
   font-size: 1rem;
 }
 
