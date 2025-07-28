@@ -1,10 +1,10 @@
 import "../css/Experience.css";
 
 export default function Experience({
-  title,
-  companyName,
-  beginDate,
-  endDate,
+  beginDate = "begin-date",
+  endDate = "end-date",
+  title = "Job Title",
+  companyName = "Company Name",
   details,
 }) {
   return (

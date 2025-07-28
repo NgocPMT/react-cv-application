@@ -1,10 +1,10 @@
 import "../css/Education.css";
 
 export default function Education({
-  beginDate,
-  endDate,
-  title,
-  schoolName,
+  beginDate = "begin date",
+  endDate = "end date",
+  title = "Title",
+  schoolName = "School Name",
   details,
 }) {
   return (
