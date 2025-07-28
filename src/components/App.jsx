@@ -42,8 +42,11 @@ export default function App() {
     if (!cvRef.current) return;
     setDownloading(true);
 
-    // Remove box-shadow to prevent unusual behavior when convert to PDF
-    cvRef.current.classList.add("pdf-export-mode");
+    const clone = cvRef.current.cloneNode(true);
+
+    clone.classList.add("pdf-export-mode");
+
+    document.body.appendChild(clone);
 
     const opt = {
       filename: "cv.pdf",
@@ -52,8 +55,8 @@ export default function App() {
       jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
     };
 
-    await html2pdf().set(opt).from(cvRef.current).save();
-    cvRef.current.classList.remove("pdf-export-mode");
+    await html2pdf().set(opt).from(clone).save();
+    document.body.removeChild(clone);
     setDownloading(false);
   }
 
