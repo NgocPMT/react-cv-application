@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
-import Navbar from "./Navbar";
+import { useEffect, useRef, useState } from "react";
 import "../css/App.css";
+import html2pdf from "html2pdf.js";
+
 import Field from "./Field";
 import FieldGroup from "./FieldGroup";
 import Education from "./Education";
@@ -33,6 +34,28 @@ export default function App() {
   const formCounts = forms.length;
   const isFirst = formIndex === 0;
   const isLast = formIndex === formCounts - 1;
+
+  const cvRef = useRef();
+  const [downloading, setDownloading] = useState(false);
+
+  async function downloadPDF() {
+    if (!cvRef.current) return;
+    setDownloading(true);
+
+    // Remove box-shadow to prevent unusual behavior when convert to PDF
+    cvRef.current.classList.add("pdf-export-mode");
+
+    const opt = {
+      filename: "cv.pdf",
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+    };
+
+    await html2pdf().set(opt).from(cvRef.current).save();
+    cvRef.current.classList.remove("pdf-export-mode");
+    setDownloading(false);
+  }
 
   function handleShowingEdu(eduIndex) {
     setShowingEdu(eduIndex);
@@ -265,7 +288,14 @@ export default function App() {
 
   return (
     <>
-      <Navbar />
+      <header>
+        <p>Simple CV Maker</p>
+        <nav>
+          <button onClick={downloadPDF}>
+            {!downloading ? "Download As PDF" : "Downloading..."}
+          </button>
+        </nav>
+      </header>
       <div className="body-wrapper">
         <div className="form-container">
           <Form title={forms[0]} index={0} formIndex={formIndex}>
@@ -422,41 +452,40 @@ export default function App() {
             aria-label="Close preview"
           ></button>
         )}
-        {(!isMobile || isPreviewOpen) && (
-          <>
-            <div className="cv-preview">
-              <div className="cv-header">
-                <h1 className="cv-full-name">
-                  {fullName.trim().length > 0 ? fullName : "Your Name Here"}
-                </h1>
-                <p className="cv-job-title">{jobTitle || "Your job title"}</p>
-              </div>
-              <div className="cv-main">
-                <h2>Experience</h2>
-                {experiences &&
-                  experiences.length > 0 &&
-                  experiences.map((experience) => (
-                    <Experience key={experience.id} {...experience} />
-                  ))}
+        <div
+          className={`cv-preview${!isMobile || isPreviewOpen ? " show" : ""}`}
+          ref={cvRef}
+        >
+          <div className="cv-header">
+            <h1 className="cv-full-name">
+              {fullName.trim().length > 0 ? fullName : "Your Name Here"}
+            </h1>
+            <p className="cv-job-title">{jobTitle || "Your job title"}</p>
+          </div>
+          <div className="cv-main">
+            <h2>Experience</h2>
+            {experiences &&
+              experiences.length > 0 &&
+              experiences.map((experience) => (
+                <Experience key={experience.id} {...experience} />
+              ))}
 
-                <h2>Education</h2>
-                {educations &&
-                  educations.length > 0 &&
-                  educations.map((education) => (
-                    <Education key={education.id} {...education} />
-                  ))}
-              </div>
-              <div className="personal-info">
-                <p>
-                  Address: {country}
-                  {city && `, ${city}`}
-                </p>
-                <p>Phone: {phone}</p>
-                <p>Email: {email}</p>
-              </div>
-            </div>
-          </>
-        )}
+            <h2>Education</h2>
+            {educations &&
+              educations.length > 0 &&
+              educations.map((education) => (
+                <Education key={education.id} {...education} />
+              ))}
+          </div>
+          <div className="personal-info">
+            <p>
+              Address: {country}
+              {city && `, ${city}`}
+            </p>
+            <p>Phone: {phone}</p>
+            <p>Email: {email}</p>
+          </div>
+        </div>
       </div>
     </>
   );
